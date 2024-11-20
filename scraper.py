@@ -46,9 +46,9 @@ class GoogleImageSearch:
         result_links = [item.get_attribute('href') for item in list_items]
 
         # Print all extracted links
-        print("\nExtracted Results:")
-        for link in result_links:
-            print(link)
+        # print("\nExtracted Results:")
+        # for link in result_links:
+        #     print(link)
 
         # Filter out any URLs containing "airbnb"
         filtered_links = [link for link in result_links if "airbnb" not in link]
@@ -73,9 +73,32 @@ class AirbnbImageScraper:
         trimmed_url = re.sub(r"(&source_impression_id=.*)?$", "", airbnb_url)
         return trimmed_url
 
+    @staticmethod
+    def extract_dates_and_guests(airbnb_url):
+        # Extract check_in, check_out, adults, and children values using regex
+        dates_match = re.search(r"check_in=(\d{4}-\d{2}-\d{2}).*?check_out=(\d{4}-\d{2}-\d{2})", airbnb_url)
+        adults_match = re.search(r"adults=(\d+)", airbnb_url)
+        children_match = re.search(r"children=(\d+)", airbnb_url)
+
+        check_in = dates_match.group(1) if dates_match else None
+        check_out = dates_match.group(2) if dates_match else None
+        adults = int(adults_match.group(1)) if adults_match else 0
+        children = int(children_match.group(1)) if children_match else 0
+        total_guests = adults + children
+
+        return check_in, check_out, total_guests
+
     def fetch_first_image_link(self, airbnb_url):
         # Trim the Airbnb URL
         airbnb_url = self.trim_airbnb_url(airbnb_url)
+
+        # Extract check_in, check_out dates, and total guests
+        check_in, check_out, total_guests = self.extract_dates_and_guests(airbnb_url)
+
+        # Print the extracted values
+        print(f"Check-in Date: {check_in}")
+        print(f"Check-out Date: {check_out}")
+        print(f"Total Guests: {total_guests}")
 
         # Open the Airbnb listing page
         self.driver.get(airbnb_url)
