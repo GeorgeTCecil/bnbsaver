@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
+import time
 
 class GoogleImageSearch:
     def __init__(self):
@@ -11,7 +12,6 @@ class GoogleImageSearch:
         self.driver = webdriver.Chrome()
 
     def search_by_image(self, image_url):
-        # Print the image URL first
         print("Image URL:", image_url)
 
         # Navigate to Google Images
@@ -30,52 +30,50 @@ class GoogleImageSearch:
         url_input.send_keys(image_url)
         url_input.send_keys(Keys.ENTER)
 
-        # Wait for the "See exact matches" link and click on it
-        see_exact_matches = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//div[text()='See exact matches']"))
-        )
-        see_exact_matches.click()
+        # Wait for the "Find image source" button and click it
+        try:
+            # Look for the "Find image source" button based on the provided structure
+            find_image_source_button = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ICt2Q') and contains(text(), 'Find image source')]"))
+            )
+            find_image_source_button.click()
 
-        # Wait for the results list to load and locate the <ul> with aria-label="All results list"
-        results_list = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//ul[@aria-label='All results list']"))
-        )
+            # Wait for the results to load
+            results_list = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//ul[@aria-label='All results list']"))
+            )
 
-        # Extract all <li> elements within the list and their links
-        list_items = results_list.find_elements(By.XPATH, ".//li//a[@href]")
-        result_links = [item.get_attribute('href') for item in list_items]
+            # Extract all <li> elements within the list and their links
+            list_items = results_list.find_elements(By.XPATH, ".//li//a[@href]")
+            result_links = [item.get_attribute('href') for item in list_items]
 
-        # Print all extracted links
-        # print("\nExtracted Results:")
-        # for link in result_links:
-        #     print(link)
+            # Filter out any URLs containing "airbnb" and "zillow"
+            filtered_links = [link for link in result_links if "airbnb" not in link and "zillow" not in link]
 
-        # Filter out any URLs containing "airbnb"
-        filtered_links = [link for link in result_links if "airbnb" not in link]
+            # Close the browser
+            self.driver.quit()
 
-        # Print all filtered links
-        print("\nFiltered Results:")
-        for link in filtered_links:
-            print(link)
+            return filtered_links
 
-        # Close the browser
-        self.driver.quit()
+        except Exception as e:
+            print(f"Error: {e}")
+            self.driver.quit()
+            return []
+
 
 
 class AirbnbImageScraper:
     def __init__(self):
-        # Initialize the WebDriver (e.g., Chrome WebDriver)
+        # Initialize the WebDriver
         self.driver = webdriver.Chrome()
 
     @staticmethod
     def trim_airbnb_url(airbnb_url):
-        # Use regex to match and retain only the part of the URL up to check_in and check_out parameters
         trimmed_url = re.sub(r"(&source_impression_id=.*)?$", "", airbnb_url)
         return trimmed_url
 
     @staticmethod
     def extract_dates_and_guests(airbnb_url):
-        # Extract check_in, check_out, adults, and children values using regex
         dates_match = re.search(r"check_in=(\d{4}-\d{2}-\d{2}).*?check_out=(\d{4}-\d{2}-\d{2})", airbnb_url)
         adults_match = re.search(r"adults=(\d+)", airbnb_url)
         children_match = re.search(r"children=(\d+)", airbnb_url)
@@ -89,51 +87,48 @@ class AirbnbImageScraper:
         return check_in, check_out, total_guests
 
     def fetch_first_image_link(self, airbnb_url):
-        # Trim the Airbnb URL
         airbnb_url = self.trim_airbnb_url(airbnb_url)
-
-        # Extract check_in, check_out dates, and total guests
         check_in, check_out, total_guests = self.extract_dates_and_guests(airbnb_url)
 
-        # Print the extracted values
-        print(f"Check-in Date: {check_in}")
-        print(f"Check-out Date: {check_out}")
-        print(f"Total Guests: {total_guests}")
-
-        # Open the Airbnb listing page
         self.driver.get(airbnb_url)
-
-        # Ensure the page loads fully
         self.driver.implicitly_wait(5)
 
-        # Scroll down to load dynamic content
-        self.driver.find_element(By.TAG_NAME, "body").send_keys(Keys.END)
-        self.driver.implicitly_wait(2)
+        # Add more time before scraping the image URL to ensure images are loaded
+        time.sleep(2) 
 
-        # Locate images by their 'img' tags containing 'src' with Airbnb's image URL pattern
-        image_elements = self.driver.find_elements(By.XPATH, "//img[contains(@src, 'https://a0.muscache.com/im/pictures')]")
+        try:
+            # Find the meta tag with property og:image and get the content attribute
+            og_image_element = self.driver.find_element(By.XPATH, "//meta[@property='og:image']")
+            og_image_url = og_image_element.get_attribute('content')
+        except:
+            # If no og:image is found, fall back to scraping images in the page
+            image_elements = self.driver.find_elements(By.XPATH, "//img[contains(@src, 'https://a0.muscache.com/im/pictures') or @id='FMP-target']")
+            
+            # Filter out the specific image URL
+            filtered_image_urls = [
+                img.get_attribute('src') for img in image_elements if img.get_attribute('src') != 'https://a0.muscache.com/im/pictures/7b5cf816-6c16-49f8-99e5-cbc4adfd97e2.jpg?im_w=320'
+            ]
+            
+            # Get the first valid image URL, if available
+            og_image_url = filtered_image_urls[0] if filtered_image_urls else None
 
-        # Extract the first image URL
-        first_image_url = image_elements[0].get_attribute('src') if image_elements else None
-
-        # Close the Airbnb browser instance
         self.driver.quit()
 
-        return first_image_url
+        return og_image_url
 
 
-# Example Usage
-if __name__ == "__main__":
-    # Prompt the user for the Airbnb URL
-    airbnb_url = input("Enter the Airbnb listing URL: ")
 
-    # Fetch the first image URL from the Airbnb listing
-    airbnb_scraper = AirbnbImageScraper()
-    first_image_url = airbnb_scraper.fetch_first_image_link(airbnb_url)
 
-    if first_image_url:
-        # Perform a Google Image Search for the extracted URL
-        google_search = GoogleImageSearch()
-        google_search.search_by_image(first_image_url)
-    else:
-        print("No image URL found.")
+# if __name__ == "__main__":
+#     airbnb_url = input("Enter the Airbnb listing URL: ")
+#     airbnb_scraper = AirbnbImageScraper()
+#     first_image_url = airbnb_scraper.fetch_first_image_link(airbnb_url)
+
+#     if first_image_url:
+#         google_search = GoogleImageSearch()
+#         links = google_search.search_by_image(first_image_url)
+#         print("Found URLs:")
+#         for link in links:
+#             print(link)
+#     else:
+#         print("No image URL found.")

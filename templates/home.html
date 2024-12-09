@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BNBSaver</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/"><h1>BNBSaver</h1></a>
+    </header>
+    <main>
+      <form method="POST" action="/">
+        <label for="airbnb_url">Paste Airbnb Link:</label>
+        <input
+          type="url"
+          id="airbnb_url"
+          name="airbnb_url"
+          placeholder="Enter Airbnb URL"
+          required
+        />
+        <button type="submit">Save Me Money!</button>
+      </form>
+    </main>
+  </body>
+</html>
