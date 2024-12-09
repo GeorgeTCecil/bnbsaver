@@ -5,11 +5,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 import time
+from selenium.webdriver.chrome.options import Options
 
 class GoogleImageSearch:
     def __init__(self):
-        # Initialize the WebDriver (e.g., Chrome WebDriver)
-        self.driver = webdriver.Chrome()
+        # Set up Chrome options for headless mode
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Run in headless mode
+        chrome_options.add_argument("--no-sandbox")  # Helps in certain environments like CI/CD
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Solve resource issue in Docker
+        # Initialize the WebDriver with options
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     def search_by_image(self, image_url):
         print("Image URL:", image_url)
@@ -61,11 +67,15 @@ class GoogleImageSearch:
             return []
 
 
-
 class AirbnbImageScraper:
     def __init__(self):
-        # Initialize the WebDriver
-        self.driver = webdriver.Chrome()
+        # Set up Chrome options for headless mode
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Run in headless mode
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        # Initialize the WebDriver with options
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     @staticmethod
     def trim_airbnb_url(airbnb_url):
@@ -115,20 +125,3 @@ class AirbnbImageScraper:
         self.driver.quit()
 
         return og_image_url
-
-
-
-
-# if __name__ == "__main__":
-#     airbnb_url = input("Enter the Airbnb listing URL: ")
-#     airbnb_scraper = AirbnbImageScraper()
-#     first_image_url = airbnb_scraper.fetch_first_image_link(airbnb_url)
-
-#     if first_image_url:
-#         google_search = GoogleImageSearch()
-#         links = google_search.search_by_image(first_image_url)
-#         print("Found URLs:")
-#         for link in links:
-#             print(link)
-#     else:
-#         print("No image URL found.")
