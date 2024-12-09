@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import re
 import time
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 class GoogleImageSearch:
     def __init__(self):
@@ -14,8 +15,18 @@ class GoogleImageSearch:
         chrome_options.add_argument("--headless")  # Run in headless mode
         chrome_options.add_argument("--no-sandbox")  # Helps in certain environments like CI/CD
         chrome_options.add_argument("--disable-dev-shm-usage")  # Solve resource issue in Docker
-        # Initialize the WebDriver with options
-        self.driver = webdriver.Chrome(options=chrome_options)
+
+        # Path to chromedriver
+        chrome_driver_path = '/usr/bin/chromedriver'  # Correct path for chromedriver
+
+        # Path to chromium binary
+        chrome_path = '/snap/bin/chromium'  # Correct path for chromium binary installed via snap
+
+        chrome_options.binary_location = chrome_path  # Set the path for Chromium binary
+
+        # Initialize the WebDriver with the service and options
+        service = Service(chrome_driver_path)
+        self.driver = webdriver.Chrome(service=service, options=chrome_options)
 
     def search_by_image(self, image_url):
         print("Image URL:", image_url)
@@ -74,8 +85,18 @@ class AirbnbImageScraper:
         chrome_options.add_argument("--headless")  # Run in headless mode
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        # Initialize the WebDriver with options
-        self.driver = webdriver.Chrome(options=chrome_options)
+
+        # Path to chromedriver
+        chrome_driver_path = '/usr/bin/chromedriver'  # Correct path for chromedriver
+
+        # Path to chromium binary
+        chrome_path = '/snap/bin/chromium'  # Correct path for chromium binary installed via snap
+
+        chrome_options.binary_location = chrome_path  # Set the path for Chromium binary
+
+        # Initialize the WebDriver with the service and options
+        service = Service(chrome_driver_path)
+        self.driver = webdriver.Chrome(service=service, options=chrome_options)
 
     @staticmethod
     def trim_airbnb_url(airbnb_url):
@@ -113,12 +134,12 @@ class AirbnbImageScraper:
         except:
             # If no og:image is found, fall back to scraping images in the page
             image_elements = self.driver.find_elements(By.XPATH, "//img[contains(@src, 'https://a0.muscache.com/im/pictures') or @id='FMP-target']")
-            
+
             # Filter out the specific image URL
             filtered_image_urls = [
                 img.get_attribute('src') for img in image_elements if img.get_attribute('src') != 'https://a0.muscache.com/im/pictures/7b5cf816-6c16-49f8-99e5-cbc4adfd97e2.jpg?im_w=320'
             ]
-            
+
             # Get the first valid image URL, if available
             og_image_url = filtered_image_urls[0] if filtered_image_urls else None
 
