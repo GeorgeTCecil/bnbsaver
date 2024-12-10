@@ -1,3 +1,5 @@
+from app import application
+
 from flask import Flask, request, render_template, redirect, url_for
 from scraper import AirbnbImageScraper, GoogleImageSearch  # Import the class from scraper.py
 
@@ -31,8 +33,4 @@ def results():
         print("No image URL found.")
     
     return render_template('results.html', data=[], image_url=None)
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
 
