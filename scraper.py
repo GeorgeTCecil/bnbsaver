@@ -5,28 +5,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 import time
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 
 class GoogleImageSearch:
     def __init__(self):
-        # Set up Chrome options for headless mode
         chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Run in headless mode
-        chrome_options.add_argument("--no-sandbox")  # Helps in certain environments like CI/CD
-        chrome_options.add_argument("--disable-dev-shm-usage")  # Solve resource issue in Docker
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--no-sandbox")  # Disable sandboxing (needed for headless mode on EC2)
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Prevent resource allocation issues
 
-        # Path to chromedriver
-        chrome_driver_path = '/usr/bin/chromedriver'  # Correct path for chromedriver
-
-        # Path to chromium binary
-        chrome_path = '/snap/bin/chromium'  # Correct path for chromium binary installed via snap
-
-        chrome_options.binary_location = chrome_path  # Set the path for Chromium binary
-
-        # Initialize the WebDriver with the service and options
-        service = Service(chrome_driver_path)
-        self.driver = webdriver.Chrome(service=service, options=chrome_options)
+        # Initialize WebDriver with Chrome options
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     def search_by_image(self, image_url):
         print("Image URL:", image_url)
@@ -79,23 +69,13 @@ class GoogleImageSearch:
 
 class AirbnbImageScraper:
     def __init__(self):
-        # Set up Chrome options for headless mode
         chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Run in headless mode
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--no-sandbox")  # Disable sandboxing (needed for headless mode on EC2)
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Prevent resource allocation issues
 
-        # Path to chromedriver
-        chrome_driver_path = '/usr/bin/chromedriver'  # Correct path for chromedriver
-
-        # Path to chromium binary
-        chrome_path = '/snap/bin/chromium'  # Correct path for chromium binary installed via snap
-
-        chrome_options.binary_location = chrome_path  # Set the path for Chromium binary
-
-        # Initialize the WebDriver with the service and options
-        service = Service(chrome_driver_path)
-        self.driver = webdriver.Chrome(service=service, options=chrome_options)
+        # Initialize WebDriver with Chrome options
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     @staticmethod
     def trim_airbnb_url(airbnb_url):

@@ -1,7 +1,7 @@
 from flask import Flask
 
-application = Flask(__name__, static_url_path='/app/static')
+# Initialize the Flask application
+application = Flask(__name__)
 
-application.config['SECRET_KEY'] = '$ecrET'
-
+# Import routes to associate them with the application
 from app import routes
