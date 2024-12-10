@@ -1,4 +1,4 @@
-#!c:\users\georg.desktop-4k4g32v\documents\bnbsaver\bnbsaver\venv\scripts\python.exe
+#!C:\Users\georg.DESKTOP-4K4G32V\Documents\bnbsaver\bnbsaver\Bnbsaver-env-main\Scripts\python.exe
 
 # $Id: rst2odt.py 5839 2009-01-07 19:09:28Z dkuhlman $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>

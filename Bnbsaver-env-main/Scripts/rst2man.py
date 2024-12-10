@@ -1,4 +1,4 @@
-#!c:\users\georg.desktop-4k4g32v\documents\bnbsaver\bnbsaver\venv\scripts\python.exe
+#!C:\Users\georg.DESKTOP-4K4G32V\Documents\bnbsaver\bnbsaver\Bnbsaver-env-main\Scripts\python.exe
 
 # Author:
 # Contact: grubert@users.sf.net
