@@ -1,4 +1,4 @@
-#!c:\users\georg.desktop-4k4g32v\documents\bnbsaver\bnbsaver\venv\scripts\python.exe
+#!C:\Users\georg.DESKTOP-4K4G32V\Documents\bnbsaver\bnbsaver\Bnbsaver-env-main\Scripts\python.exe
 
 # $Id: rst2odt_prepstyles.py 8346 2019-08-26 12:11:32Z milde $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>

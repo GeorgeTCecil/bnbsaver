@@ -1,4 +1,4 @@
-#!c:\users\georg.desktop-4k4g32v\documents\bnbsaver\bnbsaver\venv\scripts\python.exe
+#!C:\Users\georg.DESKTOP-4K4G32V\Documents\bnbsaver\bnbsaver\Bnbsaver-env-main\Scripts\python.exe
 # -*- coding: utf8 -*-
 # :Copyright: © 2015 Günter Milde.
 # :License: Released under the terms of the `2-Clause BSD license`_, in short:

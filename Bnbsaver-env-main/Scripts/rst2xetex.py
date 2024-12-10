@@ -1,4 +1,4 @@
-#!c:\users\georg.desktop-4k4g32v\documents\bnbsaver\bnbsaver\venv\scripts\python.exe
+#!C:\Users\georg.DESKTOP-4K4G32V\Documents\bnbsaver\bnbsaver\Bnbsaver-env-main\Scripts\python.exe
 
 # $Id: rst2xetex.py 7847 2015-03-17 17:30:47Z milde $
 # Author: Guenter Milde
