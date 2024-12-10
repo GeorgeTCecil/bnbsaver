@@ -4,3 +4,6 @@ selenium==4.9.1
 webdriver-manager==4.8.3
 pandas
 urllib3
+boto3
+awscli
+awsebcli

@@ -77,7 +77,6 @@ class GoogleImageSearch:
             self.driver.quit()
             return []
 
-
 class AirbnbImageScraper:
     def __init__(self):
         # Set up Chrome options for headless mode
