@@ -1,4 +1,4 @@
-from app import application  # Import the Flask instance 'application' from app/__init__.py
+from app import application
 
 if __name__ == "__main__":
-    application.run(debug=True)  # Use 'application' instead of 'app'
+    application.run(host='0.0.0.0', port=5000, debug=True)
