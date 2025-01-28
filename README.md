@@ -54,5 +54,5 @@ However:
 - Any changes you make must also be distributed under the GPL-3.0 license.
 - You cannot integrate this code or its derivatives into proprietary software.
 
-For more details, see the [LICENSE](./COPYING) file.
+For more details, see the [COPYING](./COPYING) file.
 
