@@ -43,6 +43,16 @@
 ---
 
 ## License
-This project is licensed under the **Mozilla Public License 2.0**. You are welcome to view and contribute to the code. However, any modifications to the source code must remain open and shared under the same license.
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
 
-Please fork this repository to experiment with or improve the code, and submit pull requests for contributions.
+You are free to:
+- Use this code for any purpose.
+- Modify the code and distribute your changes.
+- Contribute to this project.
+
+However:
+- Any changes you make must also be distributed under the GPL-3.0 license.
+- You cannot integrate this code or its derivatives into proprietary software.
+
+For more details, see the [LICENSE](./COPYING) file.
+
