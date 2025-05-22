@@ -1,131 +1,84 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import TimeoutException
-import re
-import time
+# Refactored GoogleImageSearch using SerpApi
+import os
+from serpapi import GoogleSearch
+# from dotenv import load_dotenv # For loading API key from .env file
 
-class GoogleImageSearch:
-    def __init__(self):
-        chrome_options = Options()
-        chrome_options.add_argument("--headless") 
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
+# load_dotenv() # Load environment variables from .env file
 
-        self.driver = webdriver.Chrome(options=chrome_options)
+class SerpApiGoogleImageSearch:
+    def __init__(self, api_key=None):
+        self.api_key = api_key or os.getenv("SERPAPI_API_KEY")
+        if not self.api_key:
+            raise ValueError("SerpApi API key not found. Set SERPAPI_API_KEY environment variable.")
 
-    def search_by_image(self, image_url):
+    def search_by_image(self, image_url, target_domains=None):
+        """
+        Performs a reverse image search using SerpApi.
+        :param image_url: URL of the image to search for.
+        :param target_domains: Optional list of domains to filter results (e.g., ['vrbo.com', 'booking.com'])
+        :return: List of relevant URLs.
+        """
+        params = {
+            "engine": "google_reverse_image",
+            "image_url": image_url,
+            "api_key": self.api_key,
+            "hl": "en", # Language
+            "gl": "us", # Country
+        }
+
         try:
-            # navigate to google images and perform a reverse image search
-            self.driver.get("https://images.google.com")
+            search = GoogleSearch(params)
+            results = search.get_dict()
 
-            search_by_image_button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@aria-label='Search by image']"))
-            )
-            search_by_image_button.click()
+            found_links = []
 
-            url_input = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.CLASS_NAME, "cB9M7"))
-            )
+            # SerpApi returns results in 'image_results' or 'inline_images' or similar
+            # You'll need to inspect the SerpApi JSON output to find the exact structure
+            # for "pages with matching images" or similar sections.
+            # This is an example, structure might vary slightly.
+            if "image_results" in results:
+                for result in results["image_results"]:
+                    if "link" in result and "source" in result:
+                        # Example: filter by source domain if target_domains provided
+                        if target_domains:
+                            if any(domain in result["source"].lower() for domain in target_domains):
+                                found_links.append(result["link"])
+                        else: # If no target_domains, take all (you might want stricter filtering)
+                            found_links.append(result["link"])
+                            
+            # You might also want to look into 'Visual matches' if 'Exact matches' isn't a direct key
+            # Google Lens results can be complex. Check the 'inline_images' or 'visual_matches' sections.
+            # For instance, from "Pages that include matching images" section
+            if 'image_sources' in results: # This key often contains sites where the image appears
+                for item in results['image_sources']:
+                    if 'link' in item:
+                         if target_domains:
+                             if any(domain in item.get("source", "").lower() for domain in target_domains):
+                                 found_links.append(item["link"])
+                         else:
+                             found_links.append(item["link"])
 
-            self.driver.execute_script("arguments[0].style.display = 'block';", url_input)
 
-            url_input.send_keys(image_url)
-            url_input.send_keys(Keys.ENTER)
+            # Deduplicate links
+            unique_links = list(set(found_links))
 
-            # locate and click on the "Exact matches" section
-            exact_matches_link = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Exact matches')]/ancestor::a"))
-            )
-            exact_matches_link.click()
+            # Further filter out Airbnb self-links if image_url itself is an Airbnb image
+            # (though ideally, you'd filter by a list of *target* OTAs)
+            cleaned_links = [link for link in unique_links if "airbnb.com" not in link.lower()]
 
-            # wait for results to load
-            rso_section = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//div[@data-async-context='query:' and @id='rso']"))
-            )
+            return cleaned_links
 
-            # extract and filter href links from the "rso" section
-            result_links = rso_section.find_elements(By.XPATH, ".//a[@href]")
-            links = [link.get_attribute("href") for link in result_links]
-
-            # filter out via keywords to minimize links unrelated to short term rentals
-            exclude_keywords = ['airbnb', 'zillow', 'realtor', 'rent.com', 'sale', 'realestate',
-                'properties', 'property',  'househunters', 'invest', 'listings']
-
-            filtered_links = [
-                link for link in links if not any(keyword in link for keyword in exclude_keywords)
-            ]
-
-            return filtered_links
-
-        except TimeoutException:
-            print("Error: Timed out while waiting for an element to load.")
-            return []
         except Exception as e:
-            print(f"Error during search: {e}")
+            print(f"Error during SerpApi Google Image search: {e}")
+            print(f"Search params: {params}")
+            if 'results' in locals() and results.get('error'):
+                print(f"SerpApi error message: {results['error']}")
             return []
-        finally:
-            self.driver.quit()
 
-        
-class AirbnbImageScraper:
-    def __init__(self):
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-
-        self.driver = webdriver.Chrome(options=chrome_options)
-
-    @staticmethod
-    def trim_airbnb_url(airbnb_url):
-        trimmed_url = re.sub(r"(&source_impression_id=.*)?$", "", airbnb_url)
-        return trimmed_url
-
-    # extract dates and guest numbers.. this will be used in the future for more in depth price saving calculations 
-    @staticmethod
-    def extract_dates_and_guests(airbnb_url):
-        dates_match = re.search(r"check_in=(\d{4}-\d{2}-\d{2}).*?check_out=(\d{4}-\d{2}-\d{2})", airbnb_url)
-        adults_match = re.search(r"adults=(\d+)", airbnb_url)
-        children_match = re.search(r"children=(\d+)", airbnb_url)
-
-        check_in = dates_match.group(1) if dates_match else None
-        check_out = dates_match.group(2) if dates_match else None
-        adults = int(adults_match.group(1)) if adults_match else 0
-        children = int(children_match.group(1)) if children_match else 0
-        total_guests = adults + children
-
-        return check_in, check_out, total_guests
-
-    # fetch primary image link to use in reverse image search
-    def fetch_first_image_link(self, airbnb_url):
-        airbnb_url = self.trim_airbnb_url(airbnb_url)
-        check_in, check_out, total_guests = self.extract_dates_and_guests(airbnb_url)
-
-        self.driver.get(airbnb_url)
-        self.driver.implicitly_wait(5)
-
-        time.sleep(2) 
-
-        try:
-            # find the meta tag with property og:image and get the content attribute
-            og_image_element = self.driver.find_element(By.XPATH, "//meta[@property='og:image']")
-            og_image_url = og_image_element.get_attribute('content')
-        except:
-            # if no og:image is found, fall back to scraping images in the page
-            image_elements = self.driver.find_elements(By.XPATH, "//img[contains(@src, 'https://a0.muscache.com/im/pictures') or @id='FMP-target']")
-
-            # filter out the specific image URL of a map.. if others are found in future, filter them here. 
-            filtered_image_urls = [
-                img.get_attribute('src') for img in image_elements if img.get_attribute('src') != 'https://a0.muscache.com/im/pictures/7b5cf816-6c16-49f8-99e5-cbc4adfd97e2.jpg?im_w=320'
-            ]
-
-            # get the first valid image URL
-            og_image_url = filtered_image_urls[0] if filtered_image_urls else None
-
-        self.driver.quit()
-
-        return og_image_url
+# Example Usage (SerpApi):
+# if __name__ == '__main__':
+#     image_searcher = SerpApiGoogleImageSearch()
+#     # Replace with a real image URL from an Airbnb listing for testing
+#     test_image_url = "https://a0.muscache.com/im/pictures/prohost-api/Hosting-SOMEID/original/SOMEID.jpeg"
+#     links = image_searcher.search_by_image(test_image_url, target_domains=['vrbo.com', 'booking.com'])
+#     print("Found links:", links)
