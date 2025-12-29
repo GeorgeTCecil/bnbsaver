@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - {{ brand.name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container py-5 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="display-1 text-danger mb-4">500</div>
+                <h1 class="h2 mb-4">Internal Server Error</h1>
+                <p class="lead text-muted mb-4">
+                    Oops! Something went wrong on our end.
+                    We've been notified and are working on it.
+                </p>
+                <div class="d-flex gap-3 justify-content-center">
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">
+                        <i class="bi bi-house me-2"></i>Go Home
+                    </a>
+                    <a href="mailto:support@stayscoutapp.com" class="btn btn-outline-primary">
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

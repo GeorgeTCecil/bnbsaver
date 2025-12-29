@@ -1,32 +1,28 @@
-attrs==24.2.0
-blinker==1.9.0
-certifi==2024.12.14
-charset-normalizer==3.4.0
-click==8.1.7
-exceptiongroup==1.2.2
-Flask==3.0.3
-gunicorn==23.0.0
-h11==0.14.0
-idna==3.10
-importlib_metadata==8.5.0
-itsdangerous==2.2.0
-Jinja2==3.1.4
-MarkupSafe==3.0.2
-outcome==1.3.0.post0
-packaging==24.2
-PySocks==1.7.1
-python-dotenv==1.0.1
-requests==2.31.0
-selenium==4.27.1
-sniffio==1.3.1
-sortedcontainers==2.4.0
-tqdm==4.66.1
-trio==0.27.0
-trio-websocket==0.11.1
-typing_extensions==4.12.2
-urllib3==2.2.3
-webdriver-manager==4.0.2
-websocket-client==1.8.0
-Werkzeug==3.0.6
-wsproto==1.2.0
-zipp==3.21.0
+# Web Framework
+flask>=3.1.0,<4.0.0
+
+# Web Scraping
+selenium>=4.27.0,<5.0.0
+beautifulsoup4>=4.12.3,<5.0.0
+requests>=2.32.0,<3.0.0
+google-search-results>=2.4.2,<3.0.0
+
+# AI/LLM Integration
+# LangChain ecosystem - all packages must be version-compatible
+langchain>=0.3.0,<0.4.0
+langchain-openai>=0.2.0,<0.3.0
+langchain-anthropic>=0.3.0,<0.4.0
+langchain-community>=0.3.0,<0.4.0
+langchain-core>=0.3.0,<0.4.0
+
+# LLM Provider SDKs
+openai>=1.58.0,<2.0.0
+anthropic>=0.40.0,<1.0.0
+
+# Utilities
+python-dotenv>=1.0.1,<2.0.0
+urllib3>=2.2.3,<3.0.0
+
+# AWS Deployment
+boto3>=1.35.0,<2.0.0
+gunicorn>=23.0.0,<24.0.0

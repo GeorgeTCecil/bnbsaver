@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5 bg-gradient-primary text-white">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">Find Your Perfect Stay at the Best Price</h1>
+                <p class="lead mb-4">
+                    Stop overpaying for vacation rentals. Our AI searches across all major booking platforms
+                    to find you the exact same property at the lowest price.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-3">
+                    <a href="{{ url_for('demo') }}" class="btn btn-light btn-lg px-4">
+                        <i class="bi bi-play-circle me-2"></i>See Live Demo
+                    </a>
+                    <a href="#early-access" class="btn btn-outline-light btn-lg px-4">
+                        Get Early Access
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-stats bg-white text-dark rounded-4 p-4 shadow-lg">
+                    <h3 class="h5 text-primary mb-4">Real Savings Example</h3>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="h2 text-success mb-0">$500</div>
+                                <small class="text-muted">Avg. Saved</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="h2 text-primary mb-0">27%</div>
+                                <small class="text-muted">Discount</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="h2 text-info mb-0">15+</div>
+                                <small class="text-muted">Sites Searched</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">How StayScout Works</h2>
+            <p class="lead text-muted">Four simple steps to save hundreds on your next vacation</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 how-it-works-card">
+                    <div class="card-icon mb-3">
+                        <i class="bi bi-link-45deg text-primary"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="h5 mb-3">1. Paste Any Listing</h3>
+                        <p class="text-muted">
+                            Found a property you love on Airbnb, VRBO, or Booking.com? Just paste the link.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 how-it-works-card">
+                    <div class="card-icon mb-3">
+                        <i class="bi bi-search text-success"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="h5 mb-3">2. AI Searches Everywhere</h3>
+                        <p class="text-muted">
+                            Our AI analyzes the property and searches across 15+ booking platforms.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 how-it-works-card">
+                    <div class="card-icon mb-3">
+                        <i class="bi bi-check-circle text-info"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="h5 mb-3">3. Verify Matches</h3>
+                        <p class="text-muted">
+                            We verify it's the same property and extract real-time pricing from each site.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 how-it-works-card">
+                    <div class="card-icon mb-3">
+                        <i class="bi bi-piggy-bank text-warning"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="h5 mb-3">4. Save Money</h3>
+                        <p class="text-muted">
+                            Book at the lowest price and save hundreds. It's that simple.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Demo Preview -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">See It In Action</h2>
+            <p class="lead text-muted">Real example: Park City luxury condo</p>
+        </div>
+
+        {% if demo_data %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Original Listing -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start justify-content-between mb-3">
+                            <div>
+                                <h5 class="mb-2">{{ demo_data.property.title }}</h5>
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt"></i> {{ demo_data.property.location }}
+                                </p>
+                            </div>
+                            <span class="badge bg-secondary">Original</span>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted d-block">Bedrooms</small>
+                                <strong>{{ demo_data.property.bedrooms }}</strong>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted d-block">Bathrooms</small>
+                                <strong>{{ demo_data.property.bathrooms }}</strong>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted d-block">Guests</small>
+                                <strong>{{ demo_data.property.max_guests }}</strong>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <small class="text-muted d-block">Nights</small>
+                                <strong>{{ demo_data.property.nights }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Comparison -->
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white p-4">
+                        <h5 class="mb-0">
+                            <i class="bi bi-graph-up-arrow me-2"></i>Price Comparison Results
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Platform</th>
+                                        <th class="text-end">Nightly</th>
+                                        <th class="text-end">Total Stay</th>
+                                        <th class="text-end">All Fees</th>
+                                        <th class="text-end">Final Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for match in demo_data.verified_matches | sort(attribute='total_cost') %}
+                                    <tr class="{% if loop.first %}table-success{% endif %}">
+                                        <td>
+                                            <strong>{{ match.platform }}</strong>
+                                            {% if loop.first %}
+                                            <span class="badge bg-success ms-2">Best Price</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">{{ match.nightly_rate | currency }}</td>
+                                        <td class="text-end">{{ match.total_price | currency }}</td>
+                                        <td class="text-end">{{ (match.cleaning_fee + match.service_fee) | currency }}</td>
+                                        <td class="text-end">
+                                            <strong>{{ match.total_cost | currency }}</strong>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-success text-white p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="mb-1">
+                                    <i class="bi bi-trophy-fill me-2"></i>Save {{ demo_data.best_price.savings_vs_airbnb | currency }}!
+                                </h5>
+                                <p class="mb-0 small">
+                                    Book on {{ demo_data.best_price.platform }} and save {{ demo_data.best_price.savings_percent | percentage }}
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <a href="{{ url_for('demo') }}" class="btn btn-light">
+                                    View Full Demo <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Value Propositions -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Why Choose StayScout?</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-cash-stack text-success"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Save $200-$500+ Per Booking</h3>
+                    <p class="text-muted">
+                        The same property can cost hundreds more on different platforms.
+                        We find the lowest price every time.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-robot text-primary"></i>
+                    </div>
+                    <h3 class="h5 mb-3">AI-Powered Intelligence</h3>
+                    <p class="text-muted">
+                        Advanced AI analyzes images and descriptions to verify exact matches
+                        across all platforms.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-globe text-info"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Search 15+ Sites Instantly</h3>
+                    <p class="text-muted">
+                        Airbnb, VRBO, Booking.com, and more. We search everywhere so you don't have to.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-gradient-primary text-white" id="early-access">
+    <div class="container py-5 text-center">
+        <h2 class="display-5 fw-bold mb-4">Coming Soon - Join the Waitlist</h2>
+        <p class="lead mb-4">
+            Be the first to know when we launch. Get exclusive early access and special launch pricing.
+        </p>
+        <form class="row g-3 justify-content-center" id="early-access-form">
+            <div class="col-auto" style="max-width: 400px;">
+                <input type="email" class="form-control form-control-lg" placeholder="Enter your email" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-light btn-lg px-5">
+                    Get Early Access
+                </button>
+            </div>
+        </form>
+        <p class="mt-3 small opacity-75">No spam, ever. Unsubscribe anytime.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Early access form handling
+    document.getElementById('early-access-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you! We\'ll send you an invite as soon as we launch.');
+        this.reset();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - {{ brand.name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container py-5 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="display-1 text-primary mb-4">404</div>
+                <h1 class="h2 mb-4">Page Not Found</h1>
+                <p class="lead text-muted mb-4">
+                    Sorry, we couldn't find the page you're looking for.
+                    Perhaps you can find what you need from the homepage.
+                </p>
+                <div class="d-flex gap-3 justify-content-center">
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">
+                        <i class="bi bi-house me-2"></i>Go Home
+                    </a>
+                    <a href="{{ url_for('demo') }}" class="btn btn-outline-primary">
+                        View Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

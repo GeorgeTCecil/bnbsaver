@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+
+{% block title %}Interactive Demo - {{ brand.name }}{% endblock %}
+
+{% block content %}
+<!-- Demo Hero -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-3">Interactive Demo</h1>
+                <p class="lead text-muted">
+                    See how StayScout finds the best prices across all booking platforms.
+                    This is a real example showing actual price differences.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="#early-access" class="btn btn-primary btn-lg">
+                    Get Early Access
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if demo_data %}
+<!-- Property Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <div class="row align-items-start">
+                    <div class="col-lg-8">
+                        <span class="badge bg-primary mb-2">Original Listing</span>
+                        <h2 class="h4 mb-3">{{ demo_data.property.title }}</h2>
+                        <p class="text-muted mb-3">
+                            <i class="bi bi-geo-alt-fill text-primary"></i> {{ demo_data.property.location }}
+                        </p>
+                        <div class="row g-3 mb-4">
+                            <div class="col-6 col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-door-open text-primary me-2"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Bedrooms</small>
+                                        <strong>{{ demo_data.property.bedrooms }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-droplet text-primary me-2"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Bathrooms</small>
+                                        <strong>{{ demo_data.property.bathrooms }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-people text-primary me-2"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Max Guests</small>
+                                        <strong>{{ demo_data.property.max_guests }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-moon-stars text-primary me-2"></i>
+                                    <div>
+                                        <small class="text-muted d-block">Nights</small>
+                                        <strong>{{ demo_data.property.nights }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-2">Check-in / Check-out</small>
+                            <strong>{{ demo_data.property.check_in }}</strong> to <strong>{{ demo_data.property.check_out }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="bg-light rounded p-3">
+                            <h6 class="mb-3">Key Amenities</h6>
+                            <ul class="list-unstyled mb-0">
+                                {% for amenity in demo_data.property.key_amenities %}
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>{{ amenity }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Process -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white p-4">
+                <h3 class="h5 mb-0">
+                    <i class="bi bi-search text-primary me-2"></i>Search Process
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="p-3">
+                            <div class="h2 text-primary mb-2">{{ demo_data.search_results.text_search }}</div>
+                            <small class="text-muted">Text Search Results</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="p-3">
+                            <div class="h2 text-success mb-2">{{ demo_data.search_results.image_search }}</div>
+                            <small class="text-muted">Image Search Results</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3">
+                            <div class="h2 text-info mb-2">{{ demo_data.verified_matches | length }}</div>
+                            <small class="text-muted">Verified Matches</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Comparison -->
+        <div class="card border-0 shadow-lg mb-4">
+            <div class="card-header bg-primary text-white p-4">
+                <h3 class="h5 mb-0">
+                    <i class="bi bi-graph-up-arrow me-2"></i>Price Comparison
+                </h3>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 20%;">Platform</th>
+                                <th class="text-end" style="width: 15%;">Nightly Rate</th>
+                                <th class="text-end" style="width: 15%;">Total Stay</th>
+                                <th class="text-end" style="width: 15%;">Cleaning Fee</th>
+                                <th class="text-end" style="width: 15%;">Service Fee</th>
+                                <th class="text-end" style="width: 20%;">Final Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for match in demo_data.verified_matches | sort(attribute='total_cost') %}
+                            <tr class="{% if loop.first %}table-success fw-bold{% endif %}">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <strong>{{ match.platform }}</strong>
+                                            {% if loop.first %}
+                                            <br><span class="badge bg-success mt-1">Best Price</span>
+                                            {% endif %}
+                                            {% if match.note %}
+                                            <br><small class="text-muted">{{ match.note }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end">{{ match.nightly_rate | currency }}</td>
+                                <td class="text-end">{{ match.total_price | currency }}</td>
+                                <td class="text-end">{{ match.cleaning_fee | currency }}</td>
+                                <td class="text-end">
+                                    {% if match.service_fee > 0 %}
+                                        {{ match.service_fee | currency }}
+                                    {% else %}
+                                        <span class="text-success">Free</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    <strong class="{% if loop.first %}text-success{% endif %}">
+                                        {{ match.total_cost | currency }}
+                                    </strong>
+                                    {% if not loop.first %}
+                                    <br><small class="text-danger">
+                                        +{{ (match.total_cost - demo_data.best_price.total_cost) | currency }}
+                                    </small>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-success text-white p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h4 class="mb-2">
+                            <i class="bi bi-trophy-fill me-2"></i>
+                            Save {{ demo_data.best_price.savings_vs_airbnb | currency }} by booking on {{ demo_data.best_price.platform }}!
+                        </h4>
+                        <p class="mb-0">
+                            That's a {{ demo_data.best_price.savings_percent | percentage }} discount compared to the original Airbnb price.
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <div class="display-6 fw-bold">{{ demo_data.best_price.savings_percent | percentage }}</div>
+                        <small>Savings</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Stats -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white p-4">
+                <h3 class="h5 mb-0">
+                    <i class="bi bi-speedometer2 text-primary me-2"></i>Search Performance
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">Total Time</span>
+                            <strong>{{ demo_data.timing.total_seconds }}s</strong>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">AI Verification</span>
+                            <strong>{{ demo_data.timing.verification }}s</strong>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-success" role="progressbar"
+                                 style="width: {{ (demo_data.timing.verification / demo_data.timing.total_seconds * 100) }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">Platform Searches</span>
+                            <strong>{{ demo_data.timing.searches }}s</strong>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-info" role="progressbar"
+                                 style="width: {{ (demo_data.timing.searches / demo_data.timing.total_seconds * 100) }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">Price Extraction</span>
+                            <strong>{{ demo_data.timing.price_extraction }}s</strong>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                 style="width: {{ (demo_data.timing.price_extraction / demo_data.timing.total_seconds * 100) }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-5 bg-gradient-primary text-white" id="early-access">
+    <div class="container py-5 text-center">
+        <h2 class="display-5 fw-bold mb-4">Ready to Start Saving?</h2>
+        <p class="lead mb-4">
+            Join the waitlist and be the first to access StayScout when we launch.
+        </p>
+        <form class="row g-3 justify-content-center" id="demo-signup-form">
+            <div class="col-auto" style="max-width: 400px;">
+                <input type="email" class="form-control form-control-lg" placeholder="Enter your email" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-light btn-lg px-5">
+                    Get Early Access
+                </button>
+            </div>
+        </form>
+        <p class="mt-3 small opacity-75">Join 1,000+ smart travelers on the waitlist</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Demo signup form handling
+    document.getElementById('demo-signup-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you! We\'ll send you an invite as soon as we launch.');
+        this.reset();
+    });
+</script>
+{% endblock %}

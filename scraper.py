@@ -11,7 +11,7 @@ import time
 class GoogleImageSearch:
     def __init__(self):
         chrome_options = Options()
-        chrome_options.add_argument("--headless") 
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
 
@@ -70,7 +70,7 @@ class GoogleImageSearch:
         finally:
             self.driver.quit()
 
-        
+
 class AirbnbImageScraper:
     def __init__(self):
         chrome_options = Options()
@@ -85,7 +85,6 @@ class AirbnbImageScraper:
         trimmed_url = re.sub(r"(&source_impression_id=.*)?$", "", airbnb_url)
         return trimmed_url
 
-    # extract dates and guest numbers.. this will be used in the future for more in depth price saving calculations 
     @staticmethod
     def extract_dates_and_guests(airbnb_url):
         dates_match = re.search(r"check_in=(\d{4}-\d{2}-\d{2}).*?check_out=(\d{4}-\d{2}-\d{2})", airbnb_url)
@@ -100,7 +99,6 @@ class AirbnbImageScraper:
 
         return check_in, check_out, total_guests
 
-    # fetch primary image link to use in reverse image search
     def fetch_first_image_link(self, airbnb_url):
         airbnb_url = self.trim_airbnb_url(airbnb_url)
         check_in, check_out, total_guests = self.extract_dates_and_guests(airbnb_url)
@@ -108,7 +106,7 @@ class AirbnbImageScraper:
         self.driver.get(airbnb_url)
         self.driver.implicitly_wait(5)
 
-        time.sleep(2) 
+        time.sleep(2)
 
         try:
             # find the meta tag with property og:image and get the content attribute
@@ -118,7 +116,7 @@ class AirbnbImageScraper:
             # if no og:image is found, fall back to scraping images in the page
             image_elements = self.driver.find_elements(By.XPATH, "//img[contains(@src, 'https://a0.muscache.com/im/pictures') or @id='FMP-target']")
 
-            # filter out the specific image URL of a map.. if others are found in future, filter them here. 
+            # filter out the specific image URL of a map.. if others are found in future, filter them here.
             filtered_image_urls = [
                 img.get_attribute('src') for img in image_elements if img.get_attribute('src') != 'https://a0.muscache.com/im/pictures/7b5cf816-6c16-49f8-99e5-cbc4adfd97e2.jpg?im_w=320'
             ]

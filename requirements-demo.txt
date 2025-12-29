@@ -1,0 +1,12 @@
+# Minimal requirements for StayScout demo deployment
+# This is a lightweight version for the demo site without heavy dependencies
+
+# Web Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# WSGI Server for production
+gunicorn==21.2.0
+
+# Utilities
+python-dotenv==1.0.0
