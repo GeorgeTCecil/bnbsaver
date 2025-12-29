@@ -111,7 +111,6 @@ affiliate_finder.py
 # Old/Deprecated/Alternative Files
 # ========================================
 app.py
-requirements.txt
 requirements-demo.txt
 
 # ========================================
