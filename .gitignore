@@ -1,3 +1,14 @@
+# Private business/planning documents (not for public portfolio)
+BUSINESS_PLAN.md
+PROJECT_ROADMAP.md
+MONETIZATION_STRATEGY.md
+DEPLOYMENT_CHECKLIST.md
+DEPLOYMENT_SUMMARY.md
+QUICKSTART.md
+QUICK_START.md
+README_DEPLOY.md
+VERCEL_DEPLOYMENT_COMPLETE.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
