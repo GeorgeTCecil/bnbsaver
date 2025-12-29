@@ -1,13 +1,14 @@
-from flask import Flask, request
+"""
+StayScout - Vercel Entry Point
+Load the full demo application
+"""
+import sys
+import os
 
-app = Flask(__name__)
+# Add parent directory to Python path for imports
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return f'''
-    <h1>StayScout Test</h1>
-    <p>Flask is working on Vercel!</p>
-    <p>Path: /{path}</p>
-    <p>Request method: {request.method}</p>
-    '''
+# Import the Flask app from application.py
+from application import app
