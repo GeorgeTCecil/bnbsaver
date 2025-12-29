@@ -1,0 +1,32 @@
+# StayScout - Vercel Deployment Requirements
+# Minimal, production-optimized dependencies for fast serverless deployment
+# Last updated: 2025-12-28
+# Python 3.11 compatible
+
+# ========================================
+# Core Web Framework
+# ========================================
+# Flask ecosystem - Latest stable versions as of Jan 2025
+Flask==3.1.0
+Werkzeug==3.1.3
+Jinja2==3.1.5
+MarkupSafe==3.0.2
+itsdangerous==2.2.0
+click==8.1.8
+
+# ========================================
+# Security & Configuration
+# ========================================
+python-dotenv==1.0.1
+
+# ========================================
+# WSGI Server
+# ========================================
+# Note: Vercel uses its own serverless function runtime
+# gunicorn included for local testing compatibility
+gunicorn==23.0.0
+
+# ========================================
+# Additional Flask utilities
+# ========================================
+blinker==1.9.0

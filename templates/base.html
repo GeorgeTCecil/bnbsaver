@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}{{ brand.description }}{% endblock %}">
+    <meta name="keywords" content="vacation rentals, airbnb alternatives, price comparison, travel deals, vacation rental search">
+    <meta name="author" content="StayScout">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="{% block og_title %}{{ brand.name }} - {{ brand.tagline }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ brand.description }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://{{ brand.domain }}">
+
+    <title>{% block title %}{{ brand.name }} - {{ brand.tagline }}{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
+                <i class="bi bi-binoculars-fill text-primary me-2" style="font-size: 1.5rem;"></i>
+                <span class="brand-name">{{ brand.name }}</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'demo' %}active{% endif %}" href="{{ url_for('demo') }}">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white ms-lg-3 px-4" href="#early-access">
+                            Get Early Access
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-binoculars-fill text-primary me-2" style="font-size: 1.5rem;"></i>
+                        <h5 class="mb-0 brand-name">{{ brand.name }}</h5>
+                    </div>
+                    <p class="text-muted">{{ brand.tagline }}</p>
+                    <p class="text-muted small">
+                        AI-powered vacation rental search that finds you the best price across all major booking platforms.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-lg-0">
+                    <h6 class="text-uppercase mb-3">Product</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{{ url_for('home') }}" class="text-muted text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="{{ url_for('demo') }}" class="text-muted text-decoration-none">Demo</a></li>
+                        <li class="mb-2"><a href="{{ url_for('about') }}" class="text-muted text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="#pricing" class="text-muted text-decoration-none">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-lg-0">
+                    <h6 class="text-uppercase mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Privacy</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Terms</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="text-uppercase mb-3">Stay Updated</h6>
+                    <p class="text-muted small">Get notified when we launch and receive exclusive travel deals.</p>
+                    <form class="mt-3" id="footer-newsletter">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-muted small">&copy; 2025 {{ brand.name }}. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <a href="#" class="text-muted me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-muted me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-muted me-3"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block extra_scripts %}{% endblock %}
+
+    <script>
+        // Newsletter form handling
+        document.getElementById('footer-newsletter')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We\'ll notify you when we launch.');
+            this.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

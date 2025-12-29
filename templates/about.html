@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - {{ brand.name }}{% endblock %}
+
+{% block content %}
+<!-- About Hero -->
+<section class="py-5 bg-gradient-primary text-white">
+    <div class="container py-5 text-center">
+        <h1 class="display-4 fw-bold mb-4">About StayScout</h1>
+        <p class="lead mb-0">
+            We're on a mission to make vacation rentals more affordable for everyone.
+        </p>
+    </div>
+</section>
+
+<!-- Mission Statement -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="display-6 fw-bold mb-4">Our Mission</h2>
+                <p class="lead text-muted mb-4">
+                    The same vacation rental property can cost hundreds of dollars more on one booking
+                    platform versus another. Most travelers never find these better prices because
+                    manually searching every site is too time-consuming.
+                </p>
+                <p class="text-muted mb-4">
+                    StayScout uses advanced AI technology to automatically search across all major
+                    booking platforms, verify exact property matches, and show you the best price —
+                    saving you time and money on every booking.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-light rounded-4 p-5 text-center">
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="h1 text-primary mb-2">$500+</div>
+                            <p class="text-muted mb-0">Average Savings</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="h1 text-success mb-2">27%</div>
+                            <p class="text-muted mb-0">Typical Discount</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="h1 text-info mb-2">15+</div>
+                            <p class="text-muted mb-0">Sites Searched</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="h1 text-warning mb-2">45s</div>
+                            <p class="text-muted mb-0">Average Search Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Detail -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">How StayScout Works</h2>
+            <p class="lead text-muted">Advanced AI technology that saves you money</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="feature-icon-lg me-3">
+                                <i class="bi bi-image text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-2">AI Image Analysis</h3>
+                                <p class="text-muted mb-0">
+                                    Our AI analyzes property photos to create a unique visual fingerprint,
+                                    enabling us to find the exact same property across different booking sites.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="feature-icon-lg me-3">
+                                <i class="bi bi-file-text text-success"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-2">Natural Language Processing</h3>
+                                <p class="text-muted mb-0">
+                                    We extract key details like location, amenities, and capacity from
+                                    property descriptions to improve match accuracy.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="feature-icon-lg me-3">
+                                <i class="bi bi-search text-info"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-2">Multi-Platform Search</h3>
+                                <p class="text-muted mb-0">
+                                    We search across Airbnb, VRBO, Booking.com, and 12+ other platforms
+                                    simultaneously to find all available listings.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="feature-icon-lg me-3">
+                                <i class="bi bi-check-circle text-warning"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-2">Verification & Pricing</h3>
+                                <p class="text-muted mb-0">
+                                    Each potential match is verified using AI, then we extract real-time
+                                    pricing including all fees to show you the true total cost.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Use StayScout -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">Why Use StayScout?</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-piggy-bank-fill text-success"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Guaranteed Savings</h3>
+                    <p class="text-muted">
+                        In testing, we've found price differences on 87% of properties searched.
+                        Average savings: $500 per booking.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-clock-fill text-primary"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Save Time</h3>
+                    <p class="text-muted">
+                        No more opening dozens of tabs and manually comparing prices.
+                        We do all the work in under a minute.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-shield-check text-info"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Verified Matches</h3>
+                    <p class="text-muted">
+                        Our AI ensures you're looking at the exact same property,
+                        not similar alternatives.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-eye-fill text-warning"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Full Transparency</h3>
+                    <p class="text-muted">
+                        We show all fees and the total cost from each platform,
+                        so there are no surprises at checkout.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-globe text-danger"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Direct Bookings</h3>
+                    <p class="text-muted">
+                        Often find direct booking options with property owners
+                        that eliminate service fees entirely.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-arrow-repeat text-success"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Always Up-to-Date</h3>
+                    <p class="text-muted">
+                        Real-time pricing from every platform ensures you're
+                        getting current, accurate information.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology Stack -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">Built with Cutting-Edge Technology</h2>
+            <p class="lead text-muted">Powered by advanced AI and machine learning</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-robot display-4 text-primary mb-3"></i>
+                    <h3 class="h5 mb-3">GPT-4 Vision</h3>
+                    <p class="text-muted mb-0">
+                        State-of-the-art image analysis to identify properties
+                        across different platforms.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-cloud-upload display-4 text-success mb-3"></i>
+                    <h3 class="h5 mb-3">Cloud Infrastructure</h3>
+                    <p class="text-muted mb-0">
+                        Scalable architecture that can handle thousands of
+                        searches simultaneously.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="bi bi-lightning-charge display-4 text-warning mb-3"></i>
+                    <h3 class="h5 mb-3">Real-Time Processing</h3>
+                    <p class="text-muted mb-0">
+                        Optimized algorithms deliver results in under
+                        60 seconds on average.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3">Our Team</h2>
+            <p class="lead text-muted">Built by travelers, for travelers</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5 text-center">
+                        <p class="lead mb-4">
+                            StayScout was created out of frustration with overpaying for vacation rentals.
+                            After discovering the same property listed at wildly different prices across
+                            multiple platforms, we decided to build a tool that would help everyone find
+                            the best deals.
+                        </p>
+                        <p class="text-muted mb-0">
+                            We're a small team of engineers and travel enthusiasts passionate about
+                            making vacation rentals more accessible and affordable for everyone.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA -->
+<section class="py-5 bg-gradient-primary text-white">
+    <div class="container py-5 text-center">
+        <h2 class="display-6 fw-bold mb-4">Get in Touch</h2>
+        <p class="lead mb-4">
+            Have questions? Want to partner with us? We'd love to hear from you.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+            <a href="mailto:hello@stayscoutapp.com" class="btn btn-light btn-lg px-5">
+                <i class="bi bi-envelope me-2"></i>Contact Us
+            </a>
+            <a href="#early-access" class="btn btn-outline-light btn-lg px-5">
+                Join the Waitlist
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

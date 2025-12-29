@@ -1,0 +1,208 @@
+# Vercel Ignore File
+# Files and directories to exclude from Vercel deployment
+# Only deploy what's needed for the demo application
+
+# ========================================
+# Virtual Environments & Python Cache
+# ========================================
+venv/
+venv_wsl/
+env/
+ENV/
+.venv/
+.virtualenv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+*.pyo
+*.pyd
+
+# ========================================
+# Environment & Secrets
+# ========================================
+.env
+.env.*
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# ========================================
+# IDEs and Editors
+# ========================================
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+*.swn
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# ========================================
+# Operating System Files
+# ========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ========================================
+# Version Control
+# ========================================
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+
+# ========================================
+# Documentation (not needed in deployment)
+# ========================================
+README.md
+README_*.md
+MONETIZATION_STRATEGY.md
+MULTI_MODAL_README.md
+DEPLOYMENT_CHECKLIST.md
+QUICK_START.md
+COPYING.txt
+LICENSE
+CHANGELOG.md
+CONTRIBUTING.md
+docs/
+
+# ========================================
+# Test Files
+# ========================================
+test_*.py
+*_test.py
+tests/
+test/
+__tests__/
+manual_e2e_test.py
+quick_test.py
+*.test.js
+*.spec.js
+
+# ========================================
+# Full Application Files (demo only needs minimal files)
+# ========================================
+scraper.py
+image_searchers.py
+web_searcher.py
+ai_extractor.py
+ai_verifier.py
+multi_modal_search.py
+search_tiers.py
+affiliate_finder.py
+
+# ========================================
+# Old/Deprecated/Alternative Files
+# ========================================
+app.py
+requirements.txt
+requirements-demo.txt
+
+# ========================================
+# Cloud Platform Configs (not for Vercel)
+# ========================================
+.elasticbeanstalk/
+.aws/
+.gcp/
+.azure/
+Dockerfile
+docker-compose.yml
+.dockerignore
+kubernetes/
+helm/
+
+# ========================================
+# Build Artifacts & Dependencies
+# ========================================
+dist/
+build/
+*.egg-info/
+.eggs/
+wheels/
+node_modules/
+bower_components/
+vendor/
+
+# ========================================
+# Logs & Databases
+# ========================================
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+logs/
+log/
+
+# ========================================
+# Temporary & Backup Files
+# ========================================
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.cache
+*~
+.~lock.*
+
+# ========================================
+# Coverage & Testing Reports
+# ========================================
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.pytest_cache/
+.hypothesis/
+
+# ========================================
+# Jupyter & Scientific Computing
+# ========================================
+*.ipynb
+.ipynb_checkpoints/
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# ========================================
+# Static Site Generators
+# ========================================
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+
+# ========================================
+# Package Manager Files
+# ========================================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+Pipfile.lock
+
+# ========================================
+# Vercel Platform Files
+# ========================================
+.vercel/
+.now/
